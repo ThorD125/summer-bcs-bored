@@ -1,0 +1,125 @@
+[
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "Service",
+        "importPath": "selenium.webdriver.chrome.service",
+        "description": "selenium.webdriver.chrome.service",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.chrome.service",
+        "documentation": {}
+    },
+    {
+        "label": "Service",
+        "importPath": "selenium.webdriver.chrome.service",
+        "description": "selenium.webdriver.chrome.service",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.chrome.service",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "ActionChains",
+        "importPath": "selenium.webdriver.common.action_chains",
+        "description": "selenium.webdriver.common.action_chains",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.action_chains",
+        "documentation": {}
+    },
+    {
+        "label": "Keys",
+        "importPath": "selenium.webdriver.common.keys",
+        "description": "selenium.webdriver.common.keys",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.keys",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.ui",
+        "description": "selenium.webdriver.support.ui",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.ui",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.ui",
+        "description": "selenium.webdriver.support.ui",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.ui",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "options",
+        "kind": 5,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "options = webdriver.ChromeOptions()\noptions.add_experimental_option(\"debuggerAddress\", \"localhost:5555\")\ndriver = webdriver.Chrome(options=options)\nkeyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "driver",
+        "kind": 5,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "driver = webdriver.Chrome(options=options)\nkeyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'\n    search = driver.execute_script(script)\n    # for link in search:",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "keyword",
+        "kind": 5,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "keyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'\n    search = driver.execute_script(script)\n    # for link in search:\n    user = search.get_attribute('href')",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    }
+]

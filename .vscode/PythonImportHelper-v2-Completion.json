@@ -8,35 +8,11 @@
         "documentation": {}
     },
     {
-        "label": "webdriver",
-        "importPath": "selenium",
-        "description": "selenium",
-        "isExtraImport": true,
-        "detail": "selenium",
-        "documentation": {}
-    },
-    {
         "label": "Service",
         "importPath": "selenium.webdriver.chrome.service",
         "description": "selenium.webdriver.chrome.service",
         "isExtraImport": true,
         "detail": "selenium.webdriver.chrome.service",
-        "documentation": {}
-    },
-    {
-        "label": "Service",
-        "importPath": "selenium.webdriver.chrome.service",
-        "description": "selenium.webdriver.chrome.service",
-        "isExtraImport": true,
-        "detail": "selenium.webdriver.chrome.service",
-        "documentation": {}
-    },
-    {
-        "label": "By",
-        "importPath": "selenium.webdriver.common.by",
-        "description": "selenium.webdriver.common.by",
-        "isExtraImport": true,
-        "detail": "selenium.webdriver.common.by",
         "documentation": {}
     },
     {
@@ -72,14 +48,6 @@
         "documentation": {}
     },
     {
-        "label": "WebDriverWait",
-        "importPath": "selenium.webdriver.support.ui",
-        "description": "selenium.webdriver.support.ui",
-        "isExtraImport": true,
-        "detail": "selenium.webdriver.support.ui",
-        "documentation": {}
-    },
-    {
         "label": "expected_conditions",
         "importPath": "selenium.webdriver.support",
         "description": "selenium.webdriver.support",
@@ -88,11 +56,38 @@
         "documentation": {}
     },
     {
-        "label": "expected_conditions",
-        "importPath": "selenium.webdriver.support",
-        "description": "selenium.webdriver.support",
+        "label": "keyword",
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
         "isExtraImport": true,
-        "detail": "selenium.webdriver.support",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "revSearch",
+        "kind": 2,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "def revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n        searches = driver.execute_script(script)",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "search",
+        "kind": 2,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "def search(keyword):\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'\n        search = driver.execute_script(script)    \n        user = search.get_attribute('href')\n        checkedFriends = checkFriends(user)\n        if checkedFriends:",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "checkFriends",
+        "kind": 2,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "def checkFriends(userUrl):\n    driver.get(f\"{userUrl}/friends\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'link\\']:not(:has(img))')))\n        script = 'return document.querySelectorAll(\"[role=\\'link\\']:not(:has(img))\");'\n        friends = driver.execute_script(script)\n        allFriends = []\n        for friend in friends:\n            if friend.text == \"\" or friend.text == \"Vrienden\" or \" vrienden\" in friend.text or \"Foto’s\" == friend.text:",
+        "detail": "fb-rev-friends",
         "documentation": {}
     },
     {
@@ -100,7 +95,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "options = webdriver.ChromeOptions()\noptions.add_experimental_option(\"debuggerAddress\", \"localhost:5555\")\ndriver = webdriver.Chrome(options=options)\nkeyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'",
+        "peekOfCode": "options = webdriver.ChromeOptions()\noptions.add_experimental_option(\"debuggerAddress\", \"localhost:5555\")\ndriver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -109,7 +104,16 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "driver = webdriver.Chrome(options=options)\nkeyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'\n    search = driver.execute_script(script)\n    # for link in search:",
+        "peekOfCode": "driver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))",
+        "detail": "fb-rev-friends",
+        "documentation": {}
+    },
+    {
+        "label": "theRevSearches",
+        "kind": 5,
+        "importPath": "fb-rev-friends",
+        "description": "fb-rev-friends",
+        "peekOfCode": "theRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -118,7 +122,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "keyword = \"Adolf Kitler\"\ndriver.get(f\"https://www.facebook.com/search/people/?q={keyword}\")\ntry:\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n    # script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n    script = 'return document.querySelector(\"[role=\\'article\\'] span a\");'\n    search = driver.execute_script(script)\n    # for link in search:\n    user = search.get_attribute('href')",
+        "peekOfCode": "keyword = \"Adolf Kitler\"\nsearch(keyword)",
         "detail": "fb-rev-friends",
         "documentation": {}
     }

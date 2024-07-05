@@ -19,6 +19,9 @@ driver = webdriver.Chrome(options=options)
 
 listOfCheckedProfiles = []
 
+numberOfSearches = 20
+numberOfFriends = 100
+
 def scroll_to_bottom():
     last_height = driver.execute_script("return document.body.scrollHeight")
     while True:
@@ -33,8 +36,10 @@ def scroll_to_bottom():
 def capture_full_page_screenshot(driver, file_path):
     # Get the total height of the page
     total_height = driver.execute_script("return document.body.scrollHeight")
-    # Get the height of the viewport
+    # Get the height and width of the viewport
     viewport_height = driver.execute_script("return window.innerHeight")
+    viewport_width = driver.execute_script("return document.body.clientWidth")
+    
     # Set initial position and scroll step
     scroll_position = 0
     scroll_step = viewport_height
@@ -56,16 +61,18 @@ def capture_full_page_screenshot(driver, file_path):
         scroll_position += scroll_step
     
     # Stitch screenshots together
-    stitched_image = stitch_screenshots(screenshots, viewport_height, total_height)
+    stitched_image = stitch_screenshots(screenshots, viewport_height, total_height, viewport_width)
     stitched_image.save(file_path)
 
-def stitch_screenshots(screenshots, viewport_height, total_height):
-    # Create a blank image with the total height
-    stitched_image = Image.new('RGB', (1920, total_height))
+def stitch_screenshots(screenshots, viewport_height, total_height, viewport_width):
+    # Create a blank image with the total height and viewport width
+    stitched_image = Image.new('RGB', (viewport_width, total_height))
     
     offset = 0
     for screenshot in screenshots:
         img = Image.open(io.BytesIO(screenshot))
+        # Crop the image to the viewport width to remove any black strips
+        img = img.crop((0, 0, viewport_width, viewport_height))
         stitched_image.paste(img, (0, offset))
         offset += viewport_height
     

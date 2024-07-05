@@ -5,7 +5,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from fb-rev-friends import keyword
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 ## & 'C:\Program Files\Google\Chrome\Application\Chrome.exe' --remote-debugging-port=5555
 
@@ -18,7 +22,7 @@ theRevSearches = []
 def revSearch(keyword):
     print("Revsearching")
     print(keyword)
-    keyword2 = "New York"
+    keyword2 = os.getenv("keyword2")
     driver.get(f"https://www.facebook.com/search/people/?q={keyword2}")
     try:
         wait = WebDriverWait(driver, 30)
@@ -75,5 +79,5 @@ def checkFriends(userUrl):
     except:
         return False
 
-keyword = "Adolf Kitler"
+keyword = os.getenv("keyword")
 search(keyword)

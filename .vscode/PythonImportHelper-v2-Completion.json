@@ -56,11 +56,20 @@
         "documentation": {}
     },
     {
-        "label": "keyword",
-        "importPath": "fb-rev-friends",
-        "description": "fb-rev-friends",
+        "label": "os",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "fb-rev-friends",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
         "documentation": {}
     },
     {
@@ -68,7 +77,7 @@
         "kind": 2,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "def revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n        searches = driver.execute_script(script)",
+        "peekOfCode": "def revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = os.getenv(\"keyword2\")\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'\n        searches = driver.execute_script(script)",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -95,7 +104,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "options = webdriver.ChromeOptions()\noptions.add_experimental_option(\"debuggerAddress\", \"localhost:5555\")\ndriver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:",
+        "peekOfCode": "options = webdriver.ChromeOptions()\noptions.add_experimental_option(\"debuggerAddress\", \"localhost:5555\")\ndriver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = os.getenv(\"keyword2\")\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -104,7 +113,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "driver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))",
+        "peekOfCode": "driver = webdriver.Chrome(options=options)\ntheRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = os.getenv(\"keyword2\")\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -113,7 +122,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "theRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = \"New York\"\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'",
+        "peekOfCode": "theRevSearches = []\ndef revSearch(keyword):\n    print(\"Revsearching\")\n    print(keyword)\n    keyword2 = os.getenv(\"keyword2\")\n    driver.get(f\"https://www.facebook.com/search/people/?q={keyword2}\")\n    try:\n        wait = WebDriverWait(driver, 30)\n        element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\\'article\\'] span a')))\n        script = 'return document.querySelectorAll(\"[role=\\'article\\'] span a\");'",
         "detail": "fb-rev-friends",
         "documentation": {}
     },
@@ -122,7 +131,7 @@
         "kind": 5,
         "importPath": "fb-rev-friends",
         "description": "fb-rev-friends",
-        "peekOfCode": "keyword = \"Adolf Kitler\"\nsearch(keyword)",
+        "peekOfCode": "keyword = os.getenv(\"keyword\")\nsearch(keyword)",
         "detail": "fb-rev-friends",
         "documentation": {}
     }

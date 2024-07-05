@@ -20,20 +20,47 @@ driver = webdriver.Chrome(options=options)
 
 listOfCheckedProfiles = []
 
-def scroll_to_bottom(driver):
-    last_height = driver.execute_script("return document.body.scrollHeight")
+numberOfSearches = 20
+numberOfFriends = 100
 
+def scroll_to_bottom():
+    last_height = driver.execute_script("return document.body.scrollHeight")
     while True:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
         time.sleep(2)
         
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
+def scroll_to_bottom_check_search():
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    while True:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+        
+        script = 'return document.querySelectorAll("[role=\'article\'] span a");'
+        friends = driver.execute_script(script)
+        if len(friends) > numberOfSearches:
+            break
+        
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
+def scroll_to_bottom_check_friends():
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    while True:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
         
         script = 'return document.querySelectorAll("[role=\'link\']:not(:has(img))");'
         friends = driver.execute_script(script)
-        if len(friends) > 100:
+        if len(friends) > numberOfFriends:
             break
-
+        
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
             break
@@ -47,8 +74,13 @@ def revSearch(keyword):
     try:
         wait = WebDriverWait(driver, 30)
         element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\'article\'] span a')))
+        
+        scroll_to_bottom_check_search()
+        
         script = 'return document.querySelectorAll("[role=\'article\'] span a");'
         searches = driver.execute_script(script)
+        
+        
         print("RevSearch found other users", len(searches))
         foundList = []
         for search in searches:
@@ -116,7 +148,7 @@ def checkFriends(userUrl):
         wait = WebDriverWait(driver, 30)
         element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\'link\']:not(:has(img))')))
         
-        scroll_to_bottom(driver)
+        scroll_to_bottom_check_friends()
         
         
         script = "return document.querySelectorAll('[role=tab]')[7].text;"

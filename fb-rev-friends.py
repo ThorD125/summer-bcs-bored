@@ -18,6 +18,8 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("debuggerAddress", "localhost:5555")
 driver = webdriver.Chrome(options=options)
 
+listOfCheckedProfiles = []
+
 def scroll_to_bottom(driver):
     last_height = driver.execute_script("return document.body.scrollHeight")
 
@@ -37,6 +39,7 @@ def scroll_to_bottom(driver):
             break
         last_height = new_height
 
+potentialSearches = []
 
 def revSearch(keyword):
     keyword2 = os.getenv("keyword2")
@@ -51,18 +54,27 @@ def revSearch(keyword):
         for search in searches:
             user = search.get_attribute('href')
             foundList.append(user)
-        print(foundList)
         
+        # print("foundList", foundList)
+        
+        friendOfSearch = []
         for user in foundList:
-            print(user)
-            userFriends = checkFriends(user)
+            # print("user", user)
+            potentialFriend = checkFriends(user)
+            if potentialFriend == False:
+                continue
             global searchingUser
-            print(f"{searchingUser}")
-            print(userFriends)
+            # print(f"{searchingUser}")
+            # print("potentialFriend", potentialFriend)
+            if searchingUser in potentialFriend.keys():
+                friendOfSearch.append(user)
+            potentialSearches.append(potentialFriend.values())
+        
+        print("friendOfSearch",friendOfSearch)
             
     except:
         return False
-    
+
 
 searchingUser = ""
 def search(keyword):
@@ -89,6 +101,12 @@ def search(keyword):
 
 
 def checkFriends(userUrl):
+    
+    if userUrl in listOfCheckedProfiles:
+        return False
+    else:
+        listOfCheckedProfiles.append(userUrl)
+    
     if "/profile.php?id=" in userUrl: 
         driver.get(f"{userUrl}&sk=friends")
     else:
@@ -99,24 +117,29 @@ def checkFriends(userUrl):
         element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '[role=\'link\']:not(:has(img))')))
         
         scroll_to_bottom(driver)
-            
-        # script = 'document.querySelector(".x78zum5.x1q0g3np.x1a02dak.x1qughib").remove()'
-        driver.execute_script(script)
-            
+        
+        
+        script = "return document.querySelectorAll('[role=tab]')[7].text;"
+        showsFollowing = driver.execute_script(script)
+        
+        if showsFollowing == "Volgend":
+            return False
+        
+        
         script = 'return document.querySelectorAll("[role=\'link\']:not(:has(img))");'
         friends = driver.execute_script(script)
-        allFriends = []
+        allFriends = {}
         
         for friend in friends:
             if friend.get_attribute('href')== userUrl or friend.text == "" or friend.text == "Vrienden" or " vrienden" in friend.text or "Foto’s" == friend.text or "Check-ins" == friend.text or friend.text == 'Alles weergeven' or friend.text == "Video's" or friend.text == "Vind-ik-leuks":
                 continue
             
-            print(friend)
-            print(friend.get_attribute('href'))
-            print(friend.text)
+            # print(friend)
+            # print(friend.get_attribute('href'))
+            # print(friend.text)
             
             # print(f"{friend.text}")
-            allFriends.append(friend.text)
+            allFriends[friend.text] = friend.get_attribute('href')
         return allFriends
     except:
         return False

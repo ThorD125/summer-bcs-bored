@@ -1,5 +1,5 @@
 import socket
-from pynput.keyboard import Controller as KeyboardController
+from pynput.keyboard import Controller as KeyboardController, Key
 from pynput.mouse import Controller as MouseController, Button
 
 # Initialize controllers
@@ -10,15 +10,15 @@ mouse = MouseController()
 def handle_data(data):
     parts = data.split(":")
     if parts[0] == "kp":
-        if parts[1] == 'Key.space':
-            keyboard.press(' ')
-        else:
-            keyboard.press(parts[1])
+        key = parts[1]
+        if key.startswith('Key.'):
+            key = getattr(Key, key.split('.')[1])
+        keyboard.press(key)
     elif parts[0] == "kr":
-        if parts[1] == 'Key.space':
-            keyboard.release(' ')
-        else:
-            keyboard.release(parts[1])
+        key = parts[1]
+        if key.startswith('Key.'):
+            key = getattr(Key, key.split('.')[1])
+        keyboard.release(key)
     elif parts[0] == "mc":
         if parts[1] == 'left':
             button = Button.left
@@ -30,7 +30,7 @@ def handle_data(data):
 # Setup socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
-    client_socket.connect(('PC_IP_ADDRESS', 12345))
+    client_socket.connect(('192.168.1.105', 12345))
     print("Connected to server.")
 
     while True:

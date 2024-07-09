@@ -12,8 +12,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-## & 'C:\Program Files\Google\Chrome\Application\Chrome.exe' --remote-debugging-port=5555
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("debuggerAddress", "localhost:5555")
 driver = webdriver.Chrome(options=options)
@@ -68,6 +66,8 @@ def scroll_to_bottom_check_friends():
 
 potentialSearches = []
 
+firstFind = True
+
 def revSearch(keyword):
     keyword2 = os.getenv("keyword2")
     driver.get(f"https://www.facebook.com/search/people/?q={keyword2}")
@@ -99,10 +99,13 @@ def revSearch(keyword):
             # print(f"{searchingUser}")
             # print("potentialFriend", potentialFriend)
             if searchingUser in potentialFriend.keys():
+                print(searchingUser)
+                friendFriends = checkFriends(potentialFriend[searchingUser])
+                print(f"friendFriends: {friendFriends}")
                 friendOfSearch.append(user)
             potentialSearches.append(potentialFriend.values())
         
-        print("friendOfSearch",friendOfSearch)
+        print(f"friendOf{keyword}: {friendOfSearch}")
             
     except:
         return False
@@ -178,3 +181,15 @@ def checkFriends(userUrl):
 
 keyword = os.getenv("keyword")
 search(keyword)
+
+
+# normal search
+# search user "userkeyword"
+# check friends
+# if user has friends return
+# else ask "secondkeywyord" search fe city
+
+# revsearch
+# check these potential friends
+# if user is in friends check these friends, dont continue with potential friends
+# if user is not in friends continue with potential friends

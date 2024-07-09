@@ -15,13 +15,13 @@ def on_key_press(key):
     try:
         send_data(f"kp:{key.char}")
     except AttributeError:
-        send_data(f"kp:{key}")
+        send_data(f"kp:{str(key)}")
 
 def on_key_release(key):
     try:
         send_data(f"kr:{key.char}")
     except AttributeError:
-        send_data(f"kr:{key}")
+        send_data(f"kr:{str(key)}")
 
 # Mouse event handlers
 def on_click(x, y, button, pressed):

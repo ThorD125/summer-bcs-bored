@@ -33,21 +33,23 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(('0.0.0.0', 12345))
 server_socket.listen(1)
 print("Waiting for connection...")
-client_socket, client_address = server_socket.accept()
-print(f"Connected to {client_address}")
-
-# Setup listeners
-keyboard_listener = keyboard.Listener(on_press=on_key_press, on_release=on_key_release)
-mouse_listener = mouse.Listener(on_click=on_click)
-
-keyboard_listener.start()
-mouse_listener.start()
 
 try:
+    client_socket, client_address = server_socket.accept()
+    print(f"Connected to {client_address}")
+
+    # Setup listeners
+    keyboard_listener = keyboard.Listener(on_press=on_key_press, on_release=on_key_release)
+    mouse_listener = mouse.Listener(on_click=on_click)
+
+    keyboard_listener.start()
+    mouse_listener.start()
+
     keyboard_listener.join()
     mouse_listener.join()
 except KeyboardInterrupt:
-    print("Exiting...")
+    print("Server stopped.")
 finally:
-    client_socket.close()
+    if 'client_socket' in locals():
+        client_socket.close()
     server_socket.close()

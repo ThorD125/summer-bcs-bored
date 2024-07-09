@@ -29,14 +29,19 @@ def handle_data(data):
 
 # Setup socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('192.168.1.105', 12345))
-
 try:
+    client_socket.connect(('PC_IP_ADDRESS', 12345))
+    print("Connected to server.")
+
     while True:
-        data = client_socket.recv(1024).decode()
-        if data:
-            handle_data(data)
+        try:
+            data = client_socket.recv(1024).decode()
+            if data:
+                handle_data(data)
+        except ConnectionResetError:
+            print("Connection to server lost.")
+            break
 except KeyboardInterrupt:
-    print("Exiting...")
+    print("Client stopped.")
 finally:
     client_socket.close()

